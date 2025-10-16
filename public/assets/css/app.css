@@ -41,4 +41,10 @@ html {
   @apply bg-white my-6 mx-auto text-gray-700 w-[350px] min-h-[10rem] shadow-lg rounded-md overflow-hidden;
 }
 
-
+.parent {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+grid-template-rows: repeat(2, 1fr);
+grid-column-gap: 15px;
+grid-row-gap: 20px;
+}

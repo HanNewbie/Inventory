@@ -19,7 +19,7 @@ class AccountController extends Controller
 
         $admins = $query->orderBy('id', 'asc')->get();
 
-        return view('admin.account.index', compact('admins'));
+        return view('admin.account.admin', compact('admins'));
     }
 
     public function index_user(Request $request)
@@ -32,7 +32,7 @@ class AccountController extends Controller
 
         $users = $query->orderBy('id', 'asc')->get();
 
-        return view('user.account.index', compact('users'));
+        return view('admin.account.user', compact('users'));
     }
 
     public function destroy($id)

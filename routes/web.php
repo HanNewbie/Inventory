@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\admin\stok_barang\StokBarangController;
+use App\Http\Controllers\admin\data_barang\LokawisataController;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\user\UserDashboardController;
+use App\Http\Controllers\user\stok_barang\UserStokBarangController;
+use App\Http\Controllers\user\notification\NotifController;
+use App\Http\Controllers\user\requests\RequestController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +41,18 @@ Route::get('/user/dashboard', function () {
 })->middleware('auth')->name('user.dashboard');
 
 route::middleware(['auth'])->group(function () {
-    Route::get('/admin/accounts', [App\Http\Controllers\AccountController::class, 'index_admin'])->name('admin.accounts');
-    Route::get('/user/accounts', [App\Http\Controllers\AccountController::class, 'index_user'])->name('user.accounts');
+
+    Route::get('/accounts/admin', [AccountController::class, 'index_admin'])->name('admin.accounts');
+     //DASHBOARD
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    //STOK BARANG
+    Route::get('/admin/stok_barang', [StokBarangController::class, 'index'])->name('admin.stok_barang');
+    //STOK BARANG
+    Route::get('/admin/data_barang/lokawisata', [LokawisataController::class, 'index'])->name('admin.lokawisata');
+
+    Route::get('/accounts/user', [AccountController::class, 'index_user'])->name('user.accounts');
+    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');  
+    Route::get('/user/stok_barang', [UserStokBarangController::class, 'index'])->name('user.stok_barang');
+    Route::get('/user/notification', [NotifController::class, 'index'])->name('user.notif');
+    Route::get('/user/request', [RequestController::class, 'index'])->name('user.request');
 });

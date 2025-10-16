@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 
@@ -31,11 +32,11 @@
     <ul>
       <!-- Dashboard -->
       <li>
-        <a href="" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">🏠 Dashboard</a>
+        <a href="{{route('admin.dashboard')}}" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">🏠 Dashboard</a>
       </li>
 
       <li class="mt-2">
-         <a href="" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">📦 Stok Barang</a>
+         <a href="{{route('admin.stok_barang')}}" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">📦 Stok Barang</a>
       </li>
 
       <li class="mt-2">
@@ -44,7 +45,7 @@
           <span>&#9662;</span>
         </button>
         <ul id="dropdown-data_barang" class="ml-4 mt-1 hidden">
-          <li><a href="" class="block px-4 py-1 rounded hover:bg-blue-100">Lokawisata</a></li>
+          <li><a href="{{route('admin.lokawisata')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Lokawisata</a></li>
           <li><a href="" class="block px-4 py-1 rounded hover:bg-blue-100">Barang Masuk</a></li>
           <li><a href="" class="block px-4 py-1 rounded hover:bg-blue-100">Barang Keluar</a></li>
         </ul>
@@ -106,7 +107,7 @@
 
       spanTanggal.textContent = `${hari}, ${tanggalAngka} ${bulan} ${tahun}`;
 
-      const dropdowns = ['data_barang', 'kelola_akun', 'pengajuan'];
+      const dropdowns = ['data_barang', 'kelola_akun'];
 
       function toggleDropdown(id) {
         dropdowns.forEach(name => {

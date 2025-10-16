@@ -1,23 +1,29 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Dashboard Admin</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        You are logged in!
-                    </div>
-                </div>
-            </div>
-        </div>
+<main class="p-6 bg-gray-100">
+  <h1 class="text-2xl font-bold mb-6">Selamat Datang, {{ auth()->user()->username }}.</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-6xl w-full">
+    <div class="bg-white p-9 rounded-xl shadow text-center">
+      <h2 class="text-lg font-semibold mb-2">Total Stok Barang</h2>
+      <p class="text-3xl font-bold text-blue-600">1,250</p>
     </div>
+
+    <div class="bg-white p-9 rounded-xl shadow text-center">
+      <h2 class="text-lg font-semibold mb-2">Barang Masuk Hari Ini</h2>
+      <p class="text-3xl font-bold text-green-600">75</p>
+    </div>
+
+    <div class="bg-white p-9 rounded-xl shadow text-center">
+      <h2 class="text-lg font-semibold mb-2">Barang Keluar Hari Ini</h2>
+      <p class="text-3xl font-bold text-red-600">50</p>
+    </div>
+
+    <div class="bg-white p-9 rounded-xl shadow text-center">
+      <h2 class="text-lg font-semibold mb-2">Notifikasi Baru</h2>
+      <p class="text-3xl font-bold text-yellow-600">5</p>
+    </div>
+  </div>
+
+</main>
 @endsection
