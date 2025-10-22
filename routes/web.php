@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountController;
 
-// 🔹 ADMIN CONTROLLERS
+//ADMIN CONTROLLERS
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\data_barang\LokawisataController;
 use App\Http\Controllers\admin\barang_masuk\InboundController;
@@ -12,7 +12,7 @@ use App\Http\Controllers\admin\barang_keluar\OutboundController;
 use App\Http\Controllers\admin\notifikasi\NotifikasiController;
 use App\Http\Controllers\admin\stok_barang\StokBarangController;
 
-// 🔹 USER CONTROLLERS
+//USER CONTROLLERS
 use App\Http\Controllers\user\UserDashboardController;
 use App\Http\Controllers\user\stok_barang\UserStokBarangController;
 use App\Http\Controllers\user\notification\NotifController;
