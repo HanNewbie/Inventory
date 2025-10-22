@@ -37,4 +37,25 @@ class StokBarangController extends Controller
 
         return redirect()->route('stok_barang.index')->with('success', 'Stok barang berhasil ditambahkan');
     }
+
+    public function destroy($id)
+    {
+        $barang = Barang::findOrFail($id);
+        $barang->delete();
+
+        return redirect()->route('stok_barang.index')->with('success', 'Stok barang berhasil dihapus');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+        'nama_barang' => 'required|string|max:255',
+        'jumlah_stok' => 'required|integer|min:1',
+        'deskripsi' => 'nullable|string',
+        ]);
+
+        $stok = Barang::findOrFail($id);
+        $stok->update($request->only(['nama_barang', 'jumlah_stok', 'deskripsi']));
+        return redirect()->route('stok_barang.index', compact('stok'))->with('success', 'Stok barang berhasil diperbarui');
+    }
 }

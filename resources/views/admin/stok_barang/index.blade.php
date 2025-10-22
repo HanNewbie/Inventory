@@ -52,12 +52,20 @@
                 class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium shadow-sm transition">
                 Edit
               </button>
-              <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm font-medium shadow-sm transition">
+            <form id="delete-form-{{$st->id}}" method="POST" action="{{route('stok_barang.destroy', $st->id)}}" class="inline">
+              @csrf
+              @method('DELETE')
+              <button type="button" data-id="{{$st->id}}"class="delete-button bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm font-medium shadow-sm transition">
                 Hapus
               </button>
+            </form>
             </td>
           </tr>
-          @endforeach
+          @empty
+            <tr>
+              <td colspan="5" class="text-center p-4 text-gray-500">Data barang belum tersedia.</td>
+            </tr>
+          @endforelse
         </tbody>
       </table>
     </div>
@@ -80,7 +88,7 @@
       </div>
       <div>
         <label class="block text-sm text-gray-600 mb-1">Jumlah</label>
-        <input type="number" name="jumlah_stok" required min="1"
+        <input type="number" name="jumlah_stok"
               class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
       </div>
       <div>
@@ -97,32 +105,94 @@
 </div>
 
   <div x-show="openEdit"
-       x-transition.opacity
-       class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-    <div @click.away="openEdit = false"
-         class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6 transform transition-all scale-100">
-      <h2 class="text-xl font-semibold mb-4 text-gray-800">Edit Barang</h2>
-      <form>
-        <div class="space-y-4">
-          <div>
-            <label class="block text-sm text-gray-600 mb-1">Nama Barang</label>
-            <input type="text" x-model="editData.nama" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-          </div>
-          <div>
-            <label class="block text-sm text-gray-600 mb-1">Jumlah</label>
-            <input type="text" x-model="editData.jumlah" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-          </div>
-          <div>
-            <label class="block text-sm text-gray-600 mb-1">Deskripsi</label>
-            <textarea x-model="editData.deskripsi" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
-          </div>
+     x-transition.opacity
+     class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+  <div @click.away="openEdit = false"
+       class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6 transform transition-all scale-100">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">Edit Barang</h2>
+    <form :action="`/admin/stok_barang/${editData.id}`" method="POST">
+      @csrf
+      @method('PUT')
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm text-gray-600 mb-1">Nama Barang</label>
+          <input type="text" name="nama_barang" x-model="editData.nama_barang"
+                 class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
         </div>
-        <div class="mt-6 flex justify-end gap-3">
-          <button type="button" @click="openEdit = false" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition">Batal</button>
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">Simpan Perubahan</button>
+
+        <div>
+          <label class="block text-sm text-gray-600 mb-1">Jumlah</label>
+          <input type="number" name="jumlah_stok" x-model="editData.jumlah_stok"
+                 class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
         </div>
-      </form>
-    </div>
+
+        <div>
+          <label class="block text-sm text-gray-600 mb-1">Deskripsi</label>
+          <textarea name="deskripsi" x-model="editData.deskripsi"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
+        </div>
+      </div>
+      
+      <div class="mt-6 flex justify-end gap-3">
+        <button type="button" @click="openEdit = false"
+                class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition">Batal</button>
+        <button type="submit"
+                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
+          Simpan Perubahan
+        </button>
+      </div>
+    </form>
   </div>
+</div>
 </main>
 @endsection
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const adminId = this.getAttribute('data-id');
+
+                    Swal.fire({
+                        title: "Yakin ingin dihapus?",
+                        text: "Data yang dihapus tidak dapat dikembalikan!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Ya, Hapus!",
+                        cancelButtonText: "Batal"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById(`delete-form-${adminId}`).submit();
+                        }
+                    });
+                });
+            });
+        });
+
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || window.performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
+                return;
+            }
+
+            @if(session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: @json(session('error')),
+                icon: "error",
+                confirmButtonColor: "#d33"
+            });
+            @endif
+
+            @if(session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: @json(session('success')),
+                icon: "success",
+                confirmButtonColor: "#3085d6"
+            });
+            @endif
+        });
+</script>

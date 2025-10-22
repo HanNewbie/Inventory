@@ -41,7 +41,7 @@
       </li>
 
       <li>
-        <a href="{{route('user.notif')}}" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">🔔 Notifikasi</a>
+        <a href="" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">🔔 Notifikasi</a>
       </li>   
     </ul>
   </nav>

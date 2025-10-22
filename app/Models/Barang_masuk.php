@@ -5,19 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class Barang_masuk extends Model
 {
     use HasFactory;
-    protected $table = 'barang';
+
+    protected $table = 'barang_masuk';
     protected $fillable = [
-        'nama_barang',
+        'barang_id',
+        'jumlah_masuk',
+        'tanggal_masuk',
         'deskripsi',
-        'jumlah_stok',
     ];
 
-    public function barangMasuk()
+    public function barang()
     {
-        return $this->hasMany(BarangMasuk::class);
+        return $this->belongsTo(Barang::class);
     }
 
 }

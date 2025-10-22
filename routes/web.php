@@ -40,16 +40,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/accounts/user', [AccountController::class, 'index_user'])->name('accounts.user');
 
     //Stok Barang
-    Route::get('/stok-barang', [StokBarangController::class, 'index'])->name('stok_barang.index');
-    Route::post('/stok-barang/store', [StokBarangController::class, 'store'])->name('stok_barang.store');
-    Route::put('/stok-barang/{id}', [StokBarangController::class, 'update'])->name('stok_barang.update');
-    Route::delete('/stok-barang/{id}', [StokBarangController::class, 'destroy'])->name('stok_barang.destroy');
+    Route::resource('/stok_barang', StokBarangController::class);
+    // Route::get('/stok-barang', [StokBarangController::class, 'index'])->name('stok_barang.index');
+    // Route::post('/stok-barang/store', [StokBarangController::class, 'store'])->name('stok_barang.store');
+    // Route::put('/stok-barang/{id}', [StokBarangController::class, 'update'])->name('stok_barang.update');
+    // Route::delete('/stok-barang/{id}', [StokBarangController::class, 'destroy'])->name('stok_barang.destroy');
 
     //Data Barang - Lokawisata
     Route::get('/data-barang/lokawisata', [LokawisataController::class, 'index'])->name('lokawisata');
 
     //Barang Masuk & Keluar
-    Route::get('/barang-masuk', [InboundController::class, 'index'])->name('barang_masuk');
+    Route::resource('/barang_masuk', InboundController::class);
+
     Route::get('/barang-keluar', [OutboundController::class, 'index'])->name('barang_keluar');
 
     //Notifikasi
