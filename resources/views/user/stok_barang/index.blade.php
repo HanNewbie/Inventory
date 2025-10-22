@@ -37,11 +37,11 @@
         <tbody class="text-gray-700">
           @php
             $data = [
-              ['id' => 1, 'nama' => 'Kamera DSLR Canon EOS 90D', 'jumlah' => '12 Unit', 'deskripsi' => 'Kamera profesional untuk dokumentasi event'],
-              ['id' => 2, 'nama' => 'Drone DJI Mavic Air 2', 'jumlah' => '8 Unit', 'deskripsi' => 'Drone untuk pengambilan video udara'],
-              ['id' => 3, 'nama' => 'Laptop Asus ROG Zephyrus', 'jumlah' => '6 Unit', 'deskripsi' => 'Laptop performa tinggi untuk desain grafis dan editing'],
-              ['id' => 4, 'nama' => 'Tripod Stand Kamera', 'jumlah' => '20 Unit', 'deskripsi' => 'Aksesori untuk penyangga kamera saat pemotretan'],
-              ['id' => 5, 'nama' => 'Speaker Portable JBL', 'jumlah' => '15 Unit', 'deskripsi' => 'Speaker nirkabel untuk keperluan acara outdoor'],
+              ['id' => 1, 'nama' => 'Tinta Zenith', 'jumlah' => '12 Buah', 'deskripsi' => 'Tinta'],
+              ['id' => 2, 'nama' => 'Binder clip 155', 'jumlah' => '8 Dus', 'deskripsi' => 'Binder clip ukuran besar'],
+              ['id' => 3, 'nama' => 'Kamper', 'jumlah' => '10 Buah', 'deskripsi' => 'wangi wangian'],
+              ['id' => 4, 'nama' => 'Batery AAA', 'jumlah' => '10 Buah', 'deskripsi' => 'Batery merk ABC'],
+              ['id' => 5, 'nama' => 'Buku Tulis 58', 'jumlah' => '15 Buah', 'deskripsi' => 'Buku tulis bergaris 58 halaman'],
             ];
           @endphp
 

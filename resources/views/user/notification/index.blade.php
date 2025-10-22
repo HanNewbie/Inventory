@@ -29,10 +29,10 @@
         <tbody class="text-gray-700">
           @php
             $data = [
-              ['id' => 2, 'nama' => 'Drone DJI Mavic Air 2', 'jumlah' => '3 Unit', 'deskripsi' => 'drone canggih','tanggal' => '18 Oktober 2025', 'aksi' => 'Ditolak'],
-              ['id' => 3, 'nama' => 'Laptop Asus ROG Zephyrus', 'jumlah' => '2 Unit', 'deskripsi' => 'laptop gaming','tanggal' => '18 Oktober 2025', 'aksi' => 'Disetujui'],
-              ['id' => 4, 'nama' => 'Tripod Stand Kamera', 'jumlah' => '10 Unit', 'deskripsi' => 'tripod kuat','tanggal' => '18 Oktober 2025', 'aksi' => 'Ditolak'],
-              ['id' => 5, 'nama' => 'Speaker Portable JBL', 'jumlah' => '7 Unit', 'deskripsi' => 'speaker jernih','tanggal' => '18 Oktober 2025', 'aksi' => 'Disetujui'],
+              ['id' => 1, 'nama' => 'Tinta Zenith', 'jumlah' => '3 Buah', 'deskripsi' => 'Tinta','tanggal' => '18 Oktober 2025', 'aksi' => 'Ditolak'],
+              ['id' => 2, 'nama' => 'Kamper	', 'jumlah' => '5 Buah', 'deskripsi' => 'wangi wangian','tanggal' => '18 Oktober 2025', 'aksi' => 'Disetujui'],
+              ['id' => 3, 'nama' => 'Batery AAA', 'jumlah' => '5 Buah', 'deskripsi' => 'Batery merk ABC','tanggal' => '18 Oktober 2025', 'aksi' => 'Disetujui'],
+              ['id' => 4, 'nama' => 'Buku Tulis 58', 'jumlah' => '3 Buah', 'deskripsi' => 'Buku tulis bergaris 58 halaman','tanggal' => '18 Oktober 2025', 'aksi' => 'Ditolak'],
               ];
           @endphp
 

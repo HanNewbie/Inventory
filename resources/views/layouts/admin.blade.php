@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 
@@ -36,7 +37,7 @@
       </li>
 
       <li class="mt-2">
-         <a href="{{route('admin.stok_barang')}}" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">📦 Stok Barang</a>
+         <a href="{{route('stok_barang.index')}}" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">📦 Stok Barang</a>
       </li>
 
       <li class="mt-2">
@@ -45,24 +46,24 @@
           <span>&#9662;</span>
         </button>
         <ul id="dropdown-data_barang" class="ml-4 mt-1 hidden">
-          <li><a href="{{route('admin.lokawisata')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Lokawisata</a></li>
-          <li><a href="" class="block px-4 py-1 rounded hover:bg-blue-100">Barang Masuk</a></li>
-          <li><a href="" class="block px-4 py-1 rounded hover:bg-blue-100">Barang Keluar</a></li>
+          <li><a href="{{route('lokawisata')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Lokawisata</a></li>
+          <li><a href="{{route('barang_masuk')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Barang Masuk</a></li>
+          <li><a href="{{route('barang_keluar')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Barang Keluar</a></li>
         </ul>
       </li>
 
       <li class="mt-2">
-         <a href="" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">🔔 Notifikasi</a>
+         <a href="{{route('notifikasi')}}" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-800">🔔 Notifikasi</a>
       </li>
 
       <li class="mt-2">
         <button onclick="toggleDropdown('kelola_akun')" class="flex justify-between items-center w-full px-4 py-2 rounded hover:bg-blue-100 text-gray-800">
-          🧾 Kelola Akun
+          👥 Kelola Akun
           <span>&#9662;</span>
         </button>
         <ul id="dropdown-kelola_akun" class="ml-4 mt-1 hidden">
-          <li><a href="{{route('admin.accounts')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Admin</a></li>
-          <li><a href="{{route('user.accounts')}}" class="block px-4 py-1 rounded hover:bg-blue-100">User</a></li>
+          <li><a href="{{route('accounts.admin')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Admin</a></li>
+          <li><a href="{{route('accounts.user')}}" class="block px-4 py-1 rounded hover:bg-blue-100">User</a></li>
         </ul>
       </li>
 

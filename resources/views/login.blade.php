@@ -13,7 +13,7 @@
        class="absolute inset-0 w-full h-full object-cover z-0"/>
 
   <div class="relative z-10 w-full max-w-md bg-white bg-opacity-50 backdrop-blur-md rounded-lg shadow-lg p-8">
-    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login Admin BLUD</h2>
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login Sistem Inventory</h2>
 
     @if ($errors->has('login'))
       <div class="mb-4 text-red-600 text-sm">

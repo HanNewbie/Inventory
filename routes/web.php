@@ -2,57 +2,71 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\admin\stok_barang\StokBarangController;
-use App\Http\Controllers\admin\data_barang\LokawisataController;
+use App\Http\Controllers\AccountController;
+
+// 🔹 ADMIN CONTROLLERS
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\data_barang\LokawisataController;
+use App\Http\Controllers\admin\barang_masuk\InboundController;
+use App\Http\Controllers\admin\barang_keluar\OutboundController;
+use App\Http\Controllers\admin\notifikasi\NotifikasiController;
+use App\Http\Controllers\admin\stok_barang\StokBarangController;
+
+// 🔹 USER CONTROLLERS
 use App\Http\Controllers\user\UserDashboardController;
 use App\Http\Controllers\user\stok_barang\UserStokBarangController;
 use App\Http\Controllers\user\notification\NotifController;
 use App\Http\Controllers\user\requests\RequestController;
-use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
+
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout.post');
 
-Route::get('/admin/dashboard', function () {
-    if (auth()->user()->role !== 'admin') {
-        abort(403, 'Unauthorized');
-    }
-    return view('admin.dashboard');
-})->middleware('auth')->name('admin.dashboard');
 
-Route::get('/user/dashboard', function () {
-    if (auth()->user()->role !== 'user') {
-        abort(403, 'Unauthorized');
-    }
-    return view('user.dashboard');
-})->middleware('auth')->name('user.dashboard');
+Route::prefix('admin')->middleware(['auth'])->group(function () {
 
-route::middleware(['auth'])->group(function () {
+    //Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/accounts/admin', [AccountController::class, 'index_admin'])->name('admin.accounts');
-     //DASHBOARD
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    //STOK BARANG
-    Route::get('/admin/stok_barang', [StokBarangController::class, 'index'])->name('admin.stok_barang');
-    //STOK BARANG
-    Route::get('/admin/data_barang/lokawisata', [LokawisataController::class, 'index'])->name('admin.lokawisata');
+    //Akun
+    Route::get('/accounts/admin', [AccountController::class, 'index_admin'])->name('accounts.admin');
+    Route::get('/accounts/user', [AccountController::class, 'index_user'])->name('accounts.user');
 
-    Route::get('/accounts/user', [AccountController::class, 'index_user'])->name('user.accounts');
-    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');  
-    Route::get('/user/stok_barang', [UserStokBarangController::class, 'index'])->name('user.stok_barang');
-    Route::get('/user/notification', [NotifController::class, 'index'])->name('user.notif');
-    Route::get('/user/request', [RequestController::class, 'index'])->name('user.request');
+    //Stok Barang
+    Route::get('/stok-barang', [StokBarangController::class, 'index'])->name('stok_barang.index');
+    Route::post('/stok-barang/store', [StokBarangController::class, 'store'])->name('stok_barang.store');
+    Route::put('/stok-barang/{id}', [StokBarangController::class, 'update'])->name('stok_barang.update');
+    Route::delete('/stok-barang/{id}', [StokBarangController::class, 'destroy'])->name('stok_barang.destroy');
+
+    //Data Barang - Lokawisata
+    Route::get('/data-barang/lokawisata', [LokawisataController::class, 'index'])->name('lokawisata');
+
+    //Barang Masuk & Keluar
+    Route::get('/barang-masuk', [InboundController::class, 'index'])->name('barang_masuk');
+    Route::get('/barang-keluar', [OutboundController::class, 'index'])->name('barang_keluar');
+
+    //Notifikasi
+    Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
+});
+
+Route::prefix('user')->name('user.')->middleware(['auth'])->group(function () {
+
+    //Dashboard
+    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+
+    //Stok Barang
+    Route::get('/stok-barang', [UserStokBarangController::class, 'index'])->name('stok_barang');
+
+    //Notifikasi
+    Route::get('/notifikasi', [NotifController::class, 'index'])->name('notifikasi');
+
+    //Request Barang
+    Route::get('/request', [RequestController::class, 'index'])->name('request');
 });

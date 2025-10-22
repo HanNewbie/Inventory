@@ -18,7 +18,7 @@
 
   <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
     <div class="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-600 to-blue-500">
-      <h4 class="text-lg font-semibold text-white">Riwayat Permintaan Barang BLUD</h4>
+      <h4 class="text-lg font-semibold text-white">Riwayat Permintaan Barang</h4>
     </div>
 
     <!-- Table -->
@@ -26,7 +26,7 @@
       <table class="w-full border-collapse text-left">
         <thead>
           <tr class="bg-blue-100 text-gray-800">
-            <th class="p-4 text-sm font-semibold">No</th>
+            <th class="p-4 text-sm font-semibold">ID</th>
             <th class="p-4 text-sm font-semibold">Nama Barang</th>
             <th class="p-4 text-sm font-semibold">Jumlah</th>
             <th class="p-4 text-sm font-semibold">Deskripsi</th>
@@ -37,7 +37,8 @@
         <tbody class="text-gray-700">
           @php
             $data = [
-              ['id' => 1, 'nama' => 'Kamera DSLR Canon EOS 90D', 'jumlah' => '5 Unit', 'deskripsi' => 'kamera keren','tanggal' => '17 Oktober 2025'],
+              ['id' => 2, 'nama' => 'Kamper', 'jumlah' => '5 Buah', 'deskripsi' => 'wangi wangian','tanggal' => '18 Oktober 2025'],
+              ['id' => 4, 'nama' => 'Batery AAA', 'jumlah' => '5 Buah', 'deskripsi' => 'Batery merk ABC','tanggal' => '17 Oktober 2025'],
               ];
           @endphp
 

@@ -27,7 +27,6 @@
       </button>
     </div>
 
-    <!-- Table -->
     <div class="overflow-x-auto">
       <table class="w-full border-collapse text-left">
         <thead>
@@ -41,25 +40,15 @@
         </thead>
 
         <tbody class="text-gray-700">
-          @php
-            $data = [
-              ['id' => 1, 'nama' => 'Kamera DSLR Canon EOS 90D', 'jumlah' => '12 Unit', 'deskripsi' => 'Kamera profesional untuk dokumentasi event'],
-              ['id' => 2, 'nama' => 'Drone DJI Mavic Air 2', 'jumlah' => '8 Unit', 'deskripsi' => 'Drone untuk pengambilan video udara'],
-              ['id' => 3, 'nama' => 'Laptop Asus ROG Zephyrus', 'jumlah' => '6 Unit', 'deskripsi' => 'Laptop performa tinggi untuk desain grafis dan editing'],
-              ['id' => 4, 'nama' => 'Tripod Stand Kamera', 'jumlah' => '20 Unit', 'deskripsi' => 'Aksesori untuk penyangga kamera saat pemotretan'],
-              ['id' => 5, 'nama' => 'Speaker Portable JBL', 'jumlah' => '15 Unit', 'deskripsi' => 'Speaker nirkabel untuk keperluan acara outdoor'],
-            ];
-          @endphp
-
-          @foreach ($data as $row)
-          <tr class="@if($loop->even) bg-gray-50 @else bg-white @endif border-b border-gray-100 hover:bg-blue-50 transition-colors">
-            <td class="p-4 font-semibold text-gray-700">{{ $row['id'] }}</td>
-            <td class="p-4">{{ $row['nama'] }}</td>
-            <td class="p-4">{{ $row['jumlah'] }}</td>
-            <td class="p-4">{{ $row['deskripsi'] }}</td>
+          @forelse ($stoks as $st)
+          <tr class="border-b border-gray-100 hover:bg-blue-50 transition">
+            <td class="p-4 font-semibold text-gray-700">{{ $loop->iteration}}</td>
+            <td class="p-4">{{ $st->nama_barang}}</td>
+            <td class="p-4">{{ $st->jumlah_stok}}</td>
+            <td class="p-4">{{ $st->deskripsi}}</td>
             <td class="p-4 text-center">
               <button 
-                @click="openEdit = true; editData = {{ json_encode($row) }}"
+                @click="openEdit = true; editData = {{ json_encode($st) }}"
                 class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium shadow-sm transition">
                 Edit
               </button>
@@ -74,37 +63,39 @@
     </div>
   </div>
 
-  <!-- Modal Tambah -->
   <div x-show="openAdd"
-       x-transition.opacity
-       class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-    <div @click.away="openAdd = false"
-         class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6 transform transition-all scale-100">
-      <h2 class="text-xl font-semibold mb-4 text-gray-800">Tambah Stok Barang</h2>
-      <form>
-        <div class="space-y-4">
-          <div>
-            <label class="block text-sm text-gray-600 mb-1">Nama Barang</label>
-            <input type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-          </div>
-          <div>
-            <label class="block text-sm text-gray-600 mb-1">Jumlah</label>
-            <input type="number" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-          </div>
-          <div>
-            <label class="block text-sm text-gray-600 mb-1">Deskripsi</label>
-            <textarea class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
-          </div>
-        </div>
-        <div class="mt-6 flex justify-end gap-3">
-          <button type="button" @click="openAdd = false" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition">Batal</button>
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">Simpan</button>
-        </div>
-      </form>
-    </div>
-  </div>
+     x-transition.opacity
+     class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
 
-  <!-- Modal Edit -->
+  <div @click.away="openAdd = false"
+       class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6 transform transition-all scale-100">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">Tambah Stok Barang</h2>
+    <form action="{{ route('stok_barang.store') }}" method="POST">
+    @csrf 
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Nama Barang</label>
+        <input type="text" name="nama_barang" required
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Jumlah</label>
+        <input type="number" name="jumlah_stok" required min="1"
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Deskripsi</label>
+        <textarea name="deskripsi" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-end gap-3">
+      <button type="button" @click="openAdd = false" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition">Batal</button>
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">Simpan</button>
+    </div>
+  </form>
+  </div>
+</div>
+
   <div x-show="openEdit"
        x-transition.opacity
        class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">

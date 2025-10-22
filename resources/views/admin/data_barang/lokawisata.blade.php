@@ -10,19 +10,15 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
     <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all">
-      <h2 class="text-xl font-semibold text-gray-800 mb-2">🌋 Baturaden</h2>
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">🌋 Madhang Maning Park</h2>
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all">
-      <h2 class="text-xl font-semibold text-gray-800 mb-2">🏝️ Telaga Sunyi</h2>
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">🏝️ Kolam Retensi</h2>
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all">
-      <h2 class="text-xl font-semibold text-gray-800 mb-2">🏕️ Curug Gede</h2>
-    </div>
-
-    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all">
-      <h2 class="text-xl font-semibold text-gray-800 mb-2">🌄 Pancuran Pitu</h2>
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">🏕️ Menara Teratai</h2>
     </div>
 
   </div>
