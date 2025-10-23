@@ -52,15 +52,25 @@ class InboundController extends Controller
 
     public function destroy($id)
     {
-        $barang = Barang_masuk::findOrFail($id);
-        $barang->delete();
+        $barangMasuk = Barang_masuk::findOrFail($id);
 
-        return redirect()->route('barang_masuk.index')->with('success', 'Data berhasil dihapus');
+        $barang = Barang::find($barangMasuk->barang_id);
+
+        if ($barang) {
+            $barang->jumlah_stok -= $barangMasuk->jumlah_masuk;
+            if ($barang->jumlah_stok < 0) {
+                $barang->jumlah_stok = 0;
+            }
+            $barang->save();
+        }
+        $barangMasuk->delete();
+
+        return redirect()->route('barang_masuk.index')->with('success', 'Data barang masuk dihapus dan stok diperbarui.');
     }
+
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
             'barang_id' => 'required|exists:barang,id',
             'tanggal_masuk' => 'required|date',
@@ -68,16 +78,10 @@ class InboundController extends Controller
             'deskripsi' => 'nullable|string',
         ]);
 
-        // Ambil data barang masuk
         $barangMasuk = Barang_masuk::findOrFail($id);
-        
-        // Ambil stok barang terkait
         $barang = Barang::findOrFail($request->barang_id);
-
-        // Kembalikan stok lama sebelum update
         $barang->jumlah_stok -= $barangMasuk->jumlah_masuk;
 
-        // Update data barang masuk
         $barangMasuk->update([
             'barang_id' => $request->barang_id,
             'tanggal_masuk' => $request->tanggal_masuk,
@@ -85,7 +89,6 @@ class InboundController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        // Tambahkan stok baru sesuai jumlah masuk terbaru
         $barang->jumlah_stok += $request->jumlah_masuk;
         $barang->save();
 

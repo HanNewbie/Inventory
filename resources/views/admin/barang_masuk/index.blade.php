@@ -53,11 +53,21 @@
             <td class="p-4">{{ $bm->jumlah_masuk}}</td>
             <td class="p-4">{{ $bm->deskripsi}}</td>
             <td class="p-4 text-center">
-              <button 
-                @click="openEdit = true; editData = {{ json_encode($bm) }}"
-                class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium shadow-sm transition">
-                Edit
-              </button>
+            <button 
+              @click="
+                  openEdit = true; 
+                  editData = {
+                    id: {{ $bm->id }},
+                    barang_id: {{ $bm->barang_id }},
+                    tanggal_masuk: '{{ $bm->tanggal_masuk }}',
+                    jumlah_masuk: {{ $bm->jumlah_masuk }},
+                    deskripsi: '{{ $bm->deskripsi }}',
+                    nama_barang: '{{ $bm->barang->nama_barang }}'
+                  }
+                "
+              class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium shadow-sm transition">
+              Edit
+            </button>
             <form id="delete-form-{{$bm->id}}" method="POST" action="{{route('barang_masuk.destroy', $bm->id)}}" class="inline">
               @csrf
               @method('DELETE')
@@ -137,7 +147,6 @@
     <form :action="`/admin/barang_masuk/${editData.id}`" method="POST">
       @csrf
       @method('PUT')
-
       <div class="space-y-4">
         <div>
           <label class="block text-sm text-gray-600 mb-1">Tanggal</label>
@@ -146,18 +155,23 @@
                  required
                  class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
         </div>
-
         <div>
-  <div>
-  <label class="block text-sm text-gray-600 mb-1">Nama Barang</label>
-  <input type="text" 
-         x-model="editData.nama_barang" 
-         readonly
-         class="w-full border rounded-lg px-3 py-2 bg-gray-100 text-gray-700 cursor-not-allowed outline-none">
-</div>
-
-
-
+        <div>
+          <label class="block text-sm text-gray-600 mb-1">Nama Barang</label>
+          <!-- tampilkan nama barang (readonly, bukan ID) -->
+          <input 
+              type="text" 
+              :value="editData.nama_barang" 
+              readonly
+              class="w-full border rounded-lg px-3 py-2 bg-gray-100 text-gray-700 outline-none"
+          >
+          <!-- kirim ID barang secara tersembunyi -->
+          <input 
+              type="hidden" 
+              name="barang_id" 
+              :value="editData.barang_id"
+          >
+        </div>
         <div>
           <label class="block text-sm text-gray-600 mb-1">Jumlah</label>
           <input type="number" name="jumlah_masuk" min="1"
@@ -165,7 +179,6 @@
                  required
                  class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
         </div>
-
         <div>
           <label class="block text-sm text-gray-600 mb-1">Deskripsi</label>
           <textarea name="deskripsi" 
@@ -173,7 +186,6 @@
                     class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
         </div>
       </div>
-
       <div class="mt-6 flex justify-end gap-3">
         <button type="button" @click="openEdit = false"
                 class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition">

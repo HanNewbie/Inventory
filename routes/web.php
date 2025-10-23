@@ -51,9 +51,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     //Barang Masuk & Keluar
     Route::resource('/barang_masuk', InboundController::class);
-
-    Route::get('/barang-keluar', [OutboundController::class, 'index'])->name('barang_keluar');
-
+    Route::resource('/barang_keluar', OutboundController::class); 
+    
     //Notifikasi
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi');
 });

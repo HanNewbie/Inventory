@@ -28,76 +28,68 @@
         </thead>
 
         <tbody class="text-gray-700">
-          @php
-            $barangKeluar = [
-              ['no' => 1, 'tanggal' => '2025-10-17', 'nama' => 'Lap Gading', 'jumlah' => '5', 'lokawisata' => 'Madhang Maning Park', 'keterangan' => 'Kebutuhan pembersihan area'],
-              ['no' => 2, 'tanggal' => '2025-10-17', 'nama' => 'Tali Rafia', 'jumlah' => '2', 'lokawisata' => 'Kolam Retensi', 'keterangan' => 'Dekorasi event'],
-              ['no' => 3, 'tanggal' => '2025-10-18', 'nama' => 'Sapu lidi tongkat', 'jumlah' => '3', 'lokawisata' => 'Menara Teratai', 'keterangan' => 'Perawatan taman'],
-              ['no' => 4, 'tanggal' => '2025-10-18', 'nama' => 'Cikrak Plastik', 'jumlah' => '2', 'lokawisata' => 'Madhang Maning Park', 'keterangan' => 'Penggunaan harian petugas'],
-              ['no' => 5, 'tanggal' => '2025-10-18', 'nama' => 'Pembersih Kaca', 'jumlah' => '4', 'lokawisata' => 'Kolam Retensi', 'keterangan' => 'Pembersihan gedung'],
-            ];
-
-            $lokawisata = ['Madhang Maning Park', 'Kolam Retensi', 'Menara Teratai'];
-          @endphp
-
-          @foreach ($barangKeluar as $row)
+          @forelse ($barangKeluar as $row)
           <tr class="@if($loop->even) bg-gray-50 @else bg-white @endif border-b border-gray-100 hover:bg-blue-50 transition">
-            <td class="p-4 font-semibold text-gray-700">{{ $row['no'] }}</td>
-            <td class="p-4">{{ $row['tanggal'] }}</td>
-            <td class="p-4">{{ $row['nama'] }}</td>
-            <td class="p-4">{{ $row['jumlah'] }}</td>
-            <td class="p-4">{{ $row['lokawisata'] }}</td>
-            <td class="p-4">{{ $row['keterangan'] }}</td>
+            <td class="p-4 font-semibold text-gray-700">{{ $loop->iteration }}</td>
+            <td class="p-4">{{ \Carbon\Carbon::parse($row->tanggal)->format('d-m-Y') }}</td>
+            <td class="p-4">{{ $row->barang->nama_barang ?? '-' }}</td>
+            <td class="p-4">{{ $row->jumlah }}</td>
+            <td class="p-4">{{ $row->lokawisata->nama_lokawisata ?? '-' }}</td>
+            <td class="p-4">{{ $row->keterangan }}</td>
           </tr>
-          @endforeach
+          @empty
+          <tr>
+            <td colspan="6" class="text-center p-6 text-gray-500">Belum ada data barang keluar.</td>
+          </tr>
+          @endforelse
         </tbody>
       </table>
     </div>
   </div>
 
+  {{-- MODAL TAMBAH DATA --}}
   <div x-show="openAdd"
        x-transition.opacity
        class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
     <div @click.away="openAdd = false"
          class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6 transform transition-all scale-100">
       <h2 class="text-xl font-semibold mb-4 text-gray-800">Tambah Barang Keluar</h2>
-      <form>
+      <form action="{{ route('barangkeluar.store') }}" method="POST">
+        @csrf
         <div class="space-y-4">
           <div>
             <label class="block text-sm text-gray-600 mb-1">Tanggal</label>
-            <input type="date" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+            <input type="date" name="tanggal" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" required>
           </div>
 
           <div>
             <label class="block text-sm text-gray-600 mb-1">Nama Lokawisata</label>
-            <select class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+            <select name="lokawisata_id" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" required>
               <option value="">-- Pilih Lokawisata --</option>
               @foreach ($lokawisata as $lok)
-                <option>{{ $lok }}</option>
+                <option value="{{ $lok->id }}">{{ $lok->nama_lokawisata }}</option>
               @endforeach
             </select>
           </div>
 
           <div>
             <label class="block text-sm text-gray-600 mb-1">Nama Barang</label>
-            <select class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+            <select name="barang_id" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" required>
               <option value="">-- Pilih Barang --</option>
-              <option>Lap Gading</option>
-              <option>Tali Rafia</option>
-              <option>Sapu lidi tongkat</option>
-              <option>Cikrak Plastik</option>
-              <option>Pembersih Kaca</option>
+              @foreach ($barang as $b)
+                <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
+              @endforeach
             </select>
           </div>
 
           <div>
             <label class="block text-sm text-gray-600 mb-1">Jumlah</label>
-            <input type="number" min="1" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+            <input type="number" name="jumlah" min="1" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" required>
           </div>
 
           <div>
             <label class="block text-sm text-gray-600 mb-1">Keterangan</label>
-            <textarea class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
+            <textarea name="keterangan" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 outline-none" required></textarea>
           </div>
         </div>
 
