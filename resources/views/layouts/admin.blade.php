@@ -46,7 +46,7 @@
           <span>&#9662;</span>
         </button>
         <ul id="dropdown-data_barang" class="ml-4 mt-1 hidden">
-          <li><a href="{{route('lokawisata')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Lokawisata</a></li>
+          <li><a href="{{route('lokawisata.index')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Lokawisata</a></li>
           <li><a href="{{route('barang_masuk.index')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Barang Masuk</a></li>
           <li><a href="{{route('barang_keluar.index')}}" class="block px-4 py-1 rounded hover:bg-blue-100">Barang Keluar</a></li>
         </ul>

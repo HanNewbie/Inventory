@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin\stok_barang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Barang;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StokBarangExport;
 
 class StokBarangController extends Controller
 {
@@ -57,5 +59,10 @@ class StokBarangController extends Controller
         $stok = Barang::findOrFail($id);
         $stok->update($request->only(['nama_barang', 'jumlah_stok', 'deskripsi']));
         return redirect()->route('stok_barang.index', compact('stok'))->with('success', 'Stok barang berhasil diperbarui');
+    }
+
+    public function export()
+    {
+        return Excel::download(new StokBarangExport, 'stok_barang.xlsx');
     }
 }

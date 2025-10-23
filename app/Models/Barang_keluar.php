@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Barang;
+use App\Models\Lokawisata;
 
 class Barang_keluar extends Model
 {
@@ -14,12 +16,17 @@ class Barang_keluar extends Model
         'barang_id',
         'tanggal_keluar',
         'jumlah_keluar',
-        'lokawisata',
+        'lokawisata_id',
         'keterangan',
     ];
 
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'barang_id');
+    }
+
+    public function lokawisata()
+    {
+        return $this->belongsTo(Lokawisata::class);
     }
 }

@@ -16,10 +16,10 @@ return new class extends Migration
         $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
         $table->date('tanggal_keluar');
         $table->integer('jumlah_keluar');
-        $table->string('lokawisata');
+        $table->foreignId('lokawisata_id')->constrained('lokawisata')->onDelete('cascade');
         $table->text('keterangan')->nullable();
         $table->timestamps();
-    });
+        });
     }
 
     /**

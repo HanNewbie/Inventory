@@ -158,14 +158,12 @@
         <div>
         <div>
           <label class="block text-sm text-gray-600 mb-1">Nama Barang</label>
-          <!-- tampilkan nama barang (readonly, bukan ID) -->
           <input 
               type="text" 
               :value="editData.nama_barang" 
               readonly
               class="w-full border rounded-lg px-3 py-2 bg-gray-100 text-gray-700 outline-none"
           >
-          <!-- kirim ID barang secara tersembunyi -->
           <input 
               type="hidden" 
               name="barang_id" 

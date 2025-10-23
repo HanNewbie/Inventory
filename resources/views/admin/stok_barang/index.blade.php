@@ -18,6 +18,9 @@
   </div>
 
   <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
+    <a href="{{ route('barang.export') }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          📤 Export ke Excel
+      </a>
     <div class="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-600 to-blue-500">
       <h4 class="text-lg font-semibold text-white">Daftar Stok Barang</h4>
       <button 
