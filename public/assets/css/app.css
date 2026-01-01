@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] { 
+  display: none !important; 
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========================
+   BASIC THEME
+======================== */
+.bg-primary {
+  background-color: #6795f1;
+}
+
+.bg-secondary {
+  background-color: #c4d3f0;
+}
+
+.text-primary {
+  color: #6795f1;
+}
+
+/* ========================
+   HAMBURGER
+======================== */
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  margin: 5px 0;
+  background-color: #111;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.hamburger-active > span:nth-child(1) {
+  @apply rotate-45;
+}
+.hamburger-active > span:nth-child(2) {
+  @apply scale-0;
+}
+.hamburger-active > span:nth-child(3) {
+  @apply -rotate-45;
+}
+
+/* ========================
+   CARD
+======================== */
+.card {
+  @apply bg-white my-6 mx-auto text-gray-700 w-[350px] min-h-[10rem] shadow-lg rounded-md overflow-hidden;
+}
+
+/* ========================
+   GRID
+======================== */
+.parent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 20px;
+}
+
+/* ========================
+   TABLET & MOBILE
+======================== */
+@media (max-width: 1024px) {
+
+  /* Sidebar collapse */
+  .flex.flex-1 {
+    flex-direction: column;
+  }
+
+  aside.w-64 {
+    width: 100%;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  aside nav ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+  }
+
+  aside nav a,
+  aside nav button {
+    width: 100%;
+  }
+
+  header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  header #tanggalSekarang {
+    font-size: 1rem;
+  }
+
+  main.p-6,
+  main.p-4 {
+    padding: 1.25rem !important;
+  }
+
+  /* ========================
+     STACKED FILTER (OPT-IN)
+     HANYA JIKA DIKASIH .stacked
+  ======================== */
+  .bg-\[\#F8FEFE\].stacked {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  .bg-\[\#F8FEFE\].stacked form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bg-\[\#F8FEFE\].stacked input,
+  .bg-\[\#F8FEFE\].stacked select,
+  .bg-\[\#F8FEFE\].stacked button,
+  .bg-\[\#F8FEFE\].stacked a {
+    width: 100%;
+  }
+
+  /* ========================
+     INLINE FILTER (OPT-IN)
+     MOBILE HORIZONTAL
+  ======================== */
+  .filter-inline {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filter-inline input,
+  .filter-inline select,
+  .filter-inline button,
+  .filter-inline a {
+    width: auto !important;
+    min-width: unset;
+  }
+}
+
+/* ========================
+   MOBILE SMALL
+======================== */
+@media (max-width: 768px) {
+
+  .parent {
+    grid-template-columns: 1fr;
+  }
+
+  table th,
+  table td {
+    padding: 10px 8px;
+    font-size: 0.875rem;
+  }
+
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  button[style*="position:fixed"][style*="bottom:30px"] {
+    width: 52px !important;
+    height: 52px !important;
+    bottom: 18px !important;
+    right: 18px !important;
+    font-size: 24px !important;
+  }
+}
+
+/* ========================
+   MODAL SMALL SCREEN
+======================== */
+@media (max-width: 640px) {
+  .fixed.inset-0 .bg-white.rounded-xl {
+    width: calc(100% - 24px);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* ========================
+   MOBILE DRAWER
+======================== */
+@media (max-width: 1023px) {
+  .mobile-drawer {
+    width: 60vw;
+    max-width: 60vw;
+  }
+}
+
+/* barang masuk */
+   @media (max-width: 768px) {
+        /* Header - force vertical layout */
+        div.bg-gradient-to-r.from-blue-600.to-blue-500 {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+            padding: 16px !important;
+        }
+        
+        div.bg-gradient-to-r.from-blue-600.to-blue-500 h4 {
+            font-size: 16px !important;
+            text-align: center;
+        }
+        
+        div.bg-gradient-to-r.from-blue-600.to-blue-500 button {
+            width: 100% !important;
+            justify-content: center !important;
+        }
+        
+        /* Filter Form Container - force vertical */
+        div[style*="background-color:#F8FEFE"] > form {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            width: 100% !important;
+            gap: 12px !important;
+        }
+        
+        /* Date Group - horizontal stack */
+        div[style*="background-color:#F8FEFE"] > form > div:first-child {
+            flex-direction: row !important;
+            width: 100% !important;
+            gap: 8px !important;
+            flex-wrap: wrap !important;
+        }
+        
+        /* Individual date inputs - flex grow */
+        div[style*="background-color:#F8FEFE"] > form > div:first-child > div {
+            flex: 1 !important;
+            min-width: 140px !important;
+            justify-content: space-between !important;
+        }
+        
+        div[style*="background-color:#F8FEFE"] > form > div:first-child > div input[type="date"] {
+            flex: 1 !important;
+            min-width: 0 !important;
+        }
+        
+        /* Filter button - full width */
+        div[style*="background-color:#F8FEFE"] > form > div:first-child > button {
+            width: 100% !important;
+        }
+        
+        /* Search Group - vertical stack */
+        div[style*="background-color:#F8FEFE"] > form > div:last-child {
+            flex-direction: column !important;
+            width: 100% !important;
+            gap: 8px !important;
+        }
+        
+        /* Search input - full width */
+        div[style*="background-color:#F8FEFE"] > form > div:last-child input[type="text"] {
+            width: 100% !important;
+        }
+        
+        /* Reset button - full width */
+        div[style*="background-color:#F8FEFE"] > form > div:last-child a {
+            width: 100% !important;
+            text-align: center !important;
+            display: block !important;
+        }
+        
+        /* Per Page Section */
+        .flex.items-center.justify-between.px-6.py-4.bg-\[\\#F8FEFE\] {
+            flex-wrap: wrap;
+            justify-content: center !important;
+            gap: 8px;
+        }
+        
+        .flex.items-center.justify-between.px-6.py-4.bg-\[\\#F8FEFE\] form {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .user-header-wrapper {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+            margin-bottom: 1.5rem !important;
+        }
+        
+        .user-header-wrapper h3 {
+            font-size: 1.25rem !important;
+            text-align: center;
+        }
+        
+        .user-header-wrapper form {
+            width: 100% !important;
+        }
+        
+        .user-header-wrapper form input {
+            width: 100% !important;
+        }
+    }
+    
+    /* TABLET - tetap desktop layout */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        /* Pastikan tetap horizontal di tablet */
+        div.bg-gradient-to-r.from-blue-600.to-blue-500,
+        div[style*="background-color:#F8FEFE"] > form,
+        div[style*="background-color:#F8FEFE"] > form > div {
+            flex-direction: row !important;
+        }
+    }
